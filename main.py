@@ -1,4 +1,4 @@
-import certifi
+
 from flask import Flask, request, send_file, render_template
 import os
 from flask_pymongo import PyMongo
