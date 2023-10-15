@@ -1,5 +1,4 @@
-
-from flask import Flask, request, send_file, render_template
+from flask import Flask, request, send_file, render_template, redirect, url_for
 import os
 from flask_pymongo import PyMongo
 from flask_cors import CORS
@@ -7,7 +6,6 @@ from bson.json_util import dumps
 from bson.json_util import loads
 import json
 from bson.objectid import ObjectId
-
 
 app = Flask(__name__)
 app.debug = True
@@ -18,10 +16,26 @@ mongo = PyMongo(app, uri=uri_mongo_dbaas)
 db = mongo.db
 
 
-
 @app.route('/')
 def home():
     return render_template('index.html')
+
+
+# /static/admin
+
+@app.route('/static')
+def static_redirect():
+    return redirect(url_for('home'))
+
+
+@app.route('/static/admin')
+def static_redirect_admin():
+    return redirect(url_for('home'))
+
+
+@app.route('/static/home')
+def static_redirect_home():
+    return redirect(url_for('home'))
 
 
 @app.route("/form", methods=['POST'])
